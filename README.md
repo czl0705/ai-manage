@@ -3,6 +3,9 @@
 
 注意：fish为公司开发的兼容ie8的react组件库，请先切换公司内网的npm（npm config set registry="http://registry.npm.sdp.nd/"），使用cmd安装
 
+## 进度
+目前暂时配置到【文件路径优化】，其他待续
+
 参考链接：
 https://doc.webpack-china.org/concepts/
 https://github.com/brickspert/blog/issues/1
