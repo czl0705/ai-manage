@@ -1,9 +1,13 @@
 const path = require('path');   //处理路径，nodeJS内置模块
+const webpack = require('webpack');
 
 // 暴露模块
 module.exports = {
     // 入口，__dirname：表示根目录，path.join：连接多个路径
-    entry: path.join(__dirname, 'src/index.js'),
+    entry: [
+        "react-hot-loader/patch",
+        path.join(__dirname, 'src/index.js')
+    ],
 
     // 出口
     output: {
@@ -28,8 +32,34 @@ module.exports = {
     },
 
     // 插件
-    plugins: [],
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ],
 
     // 服务
-    devServer: {}
+    devServer: {
+        // URL的根目录
+        contentBase: path.join(__dirname, './dist'),
+
+        // 一切服务都启用gzip压缩
+        compress: true,
+
+        // 任意的404响应都被替代为index.html
+        // historyApiFallback: true,
+
+        // 服务器地址，默认是localhost
+        host: 'localhost',
+
+        // 启用热替换
+        hot: true,
+
+        //自动刷新
+        // inline: true,
+
+        // 运行后，自动在浏览器中打开
+        open: true,
+
+        // 端口号(默认8080)
+        port: 9292
+    }
 };

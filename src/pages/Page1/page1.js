@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-export default class Hello extends Component {
+export default class Page1 extends Component {
     render() {
         return (
-            <div>Hello,React!</div>
+            <div>this is Page1~111</div>
         )
     }
 }
