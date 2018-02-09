@@ -1,0 +1,27 @@
+{
+  "name": "ie8-webpack3-react",
+  "version": "1.0.0",
+  "description": "兼容ie8的基于webpack3.x打包的react + fish + react-router + redux模板",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/czl0705/ai-manage.git"
+  },
+  "keywords": [
+    "ie8",
+    "webpack3.x",
+    "react",
+    "react-router",
+    "redux",
+    "fish"
+  ],
+  "author": "chenzl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/czl0705/ai-manage/issues"
+  },
+  "homepage": "https://github.com/czl0705/ai-manage#readme"
+}
