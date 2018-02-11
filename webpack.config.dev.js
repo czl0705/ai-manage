@@ -45,7 +45,7 @@ module.exports = {
         compress: true,
 
         // 任意的404响应都被替代为index.html
-        // historyApiFallback: true,
+        historyApiFallback: true,
 
         // 服务器地址，默认是localhost
         host: 'localhost',
@@ -53,13 +53,22 @@ module.exports = {
         // 启用热替换
         hot: true,
 
-        //自动刷新
-        // inline: true,
-
         // 运行后，自动在浏览器中打开
         open: true,
 
         // 端口号(默认8080)
         port: 9292
+    },
+
+    // 解析
+    resolve: {
+        // 配置别名
+        alias: {
+            pages: path.join(__dirname, 'src/pages'),
+            components: path.join(__dirname, 'src/components'),
+            router: path.join(__dirname, 'src/router'),
+            actions: path.join(__dirname, 'src/redux/actions'),
+            reducers: path.join(__dirname, 'src/redux/reducers')
+        }
     }
 };

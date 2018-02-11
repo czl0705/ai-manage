@@ -4,8 +4,10 @@ import React, {Component} from 'react';
 export default class Home extends Component {
     // 构造函数
     constructor(props) {
-        // super关键字用于访问父对象上的函数
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super
+        /*
+         *super关键字用于访问父对象上的函数
+         *https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super
+         */
         super(props);
         this.state = {
             count: 0

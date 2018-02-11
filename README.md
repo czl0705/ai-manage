@@ -10,7 +10,7 @@
 ```
 
 ## 进度
-目前暂时配置到【文件路径优化】，其他待续
+目前暂时配置到【redux】，其他待续
 
 参考链接：
 1.  https://doc.webpack-china.org/concepts/
