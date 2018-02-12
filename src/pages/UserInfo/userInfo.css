@@ -1,0 +1,7 @@
+.user-info-box{
+    width: 670px;
+    border: 1px solid green;
+}
+.user-info-box p{
+    text-indent: 2em;
+}
