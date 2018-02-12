@@ -1,18 +1,26 @@
 const path = require('path');   //处理路径，nodeJS内置模块
 const webpack = require('webpack');
 
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+
 // 暴露模块
 module.exports = {
     // 入口，__dirname：表示根目录，path.join：连接多个路径
-    entry: [
-        "react-hot-loader/patch",
-        path.join(__dirname, 'src/index.js')
-    ],
+    entry: {
+        app: [
+            "react-hot-loader/patch",
+            path.join(__dirname, 'src/index.js')
+        ],
+
+        // 提取公用模块
+        vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
+    },
 
     // 出口
     output: {
         path: path.join(__dirname, './dist'),
-        filename: 'bundle.js'
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].[chunkhash].js'
     },
 
     // 文件处理
@@ -27,13 +35,51 @@ module.exports = {
 
                 // 指定目录
                 include: path.join(__dirname, 'src')
+            },
+            {
+                test: /\.css$/,
+
+                // 注意顺序，先引用style-loader在引用css-loader，否则会解析出错
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        // [path]：图片路径 [ext]：图片类型
+                        name: '[path][name].[ext]',
+
+                        // 设定大小，小于该值的图片会被转义为base64
+                        limit: 10240
+                    }
+                }]
             }
         ]
     },
 
     // 插件
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        // 热更新
+        new webpack.HotModuleReplacementPlugin(),
+
+        // 模板页面
+        new HtmlWebpackPlugin({
+            // 生成后页面名称
+            filename: 'index.html',
+
+            // 模板路径
+            template: path.join(__dirname, 'src/index.html')
+        }),
+
+        // 抽离公共模块
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        })
     ],
 
     // 服务
@@ -68,7 +114,11 @@ module.exports = {
             components: path.join(__dirname, 'src/components'),
             router: path.join(__dirname, 'src/router'),
             actions: path.join(__dirname, 'src/redux/actions'),
-            reducers: path.join(__dirname, 'src/redux/reducers')
+            reducers: path.join(__dirname, 'src/redux/reducers'),
+            img: path.join(__dirname, 'public/images')
         }
-    }
+    },
+
+    // 调试
+    devtool: 'inline-source-map'
 };

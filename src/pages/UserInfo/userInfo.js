@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getUserInfo} from 'actions/userInfo';
 
+import imgAvatar from 'img/avatar.jpg';
+
 class UserInfo extends Component {
     render() {
         const {userInfo, isLoading, errorMsg} = this.props.userInfo;
@@ -11,9 +13,10 @@ class UserInfo extends Component {
                     isLoading ? '请求信息中......' : (
                         errorMsg ? errorMsg :
                             <div>
-                                <p>用户信息：</p>
+                                <p id="test">用户信息</p>
                                 <p>用户名：{userInfo.name}</p>
                                 <p>介绍：{userInfo.intro}</p>
+                                <img src={imgAvatar} alt="这是头像"/>
                             </div>
                     )
                 }

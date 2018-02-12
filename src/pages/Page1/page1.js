@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+import './page1.scss';
 
 export default class Page1 extends Component {
     render() {
         return (
-            <div>this is Page1~111</div>
+            <div className="page-box">
+                <p>this is Page1~111</p>
+            </div>
         )
     }
 }

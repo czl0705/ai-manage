@@ -1,0 +1,10 @@
+.page-box{
+    width: 720px;
+    height: 480px;
+    border: 1px solid red;
+    background: url(../../../public/images/test/123.png) no-repeat;
+    background-size: contain;
+    p{
+        color: green;
+    }
+}
