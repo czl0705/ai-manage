@@ -53,7 +53,9 @@ const devConfig = {
 
         // 开启 mock
         new webpack.DefinePlugin({
-            MOCK: true
+            'process.env': {
+                'NODE_ENV': JSON.stringify('development')
+            }
         })
     ],
 

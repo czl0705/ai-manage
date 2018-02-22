@@ -3,12 +3,11 @@ import ReactDom from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import {Provider} from 'react-redux';
 import store from './redux/store';
-// import getRouter from 'router/router';
-// import Hello from './components/Hello/hello';
 import {BrowserRouter as Router} from 'react-router-dom';
 import App from 'components/App/app';
 
-if (MOCK) {
+// 开发启用mock模拟数据
+if (process.env.NODE_ENV === 'development') {
     require('mock/mock');
 }
 
