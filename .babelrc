@@ -6,13 +6,5 @@
     ],
     "plugins": [
         "react-hot-loader/babel"
-        // [
-        //     "import",
-        //     {
-        //         "libraryName": "@sdp.nd/fish",
-        //         "libraryDirectory": "lib",
-        //         "style": true
-        //     }
-        // ]
     ]
 }

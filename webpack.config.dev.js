@@ -1,24 +1,21 @@
+const merge = require('webpack-merge'); //合并配置插件
 const path = require('path');   //处理路径，nodeJS内置模块
 const webpack = require('webpack');
 
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+const commonConfig = require('./webpack.config.common');
 
-// 暴露模块
-module.exports = {
+// 开发配置
+const devConfig = {
     // 入口，__dirname：表示根目录，path.join：连接多个路径
     entry: {
         app: [
             "react-hot-loader/patch",
             path.join(__dirname, 'src/index.js')
-        ],
-
-        // 提取公用模块
-        vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
+        ]
     },
 
     // 出口
     output: {
-        path: path.join(__dirname, './dist'),
         filename: '[name].[hash].js',
         chunkFilename: '[name].[chunkhash].js'
     },
@@ -27,23 +24,9 @@ module.exports = {
     module: {
         rules: [
             {
-                // 目标文件，正常使用正则匹配
-                test: /\.js$/,
-
-                // 使用的解析器，cacheDirectory是用来缓存编译结果，下次编译加速
-                use: ['babel-loader?cacheDirectory=true'],
-
-                // 指定目录
-                include: path.join(__dirname, 'src')
-            },
-            {
-                test: /\.css$/,
+                test: /\.(css|scss)$/,
 
                 // 注意顺序，先引用style-loader在引用css-loader，否则会解析出错
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
@@ -66,20 +49,6 @@ module.exports = {
     plugins: [
         // 热更新
         new webpack.HotModuleReplacementPlugin(),
-
-        // 模板页面
-        new HtmlWebpackPlugin({
-            // 生成后页面名称
-            filename: 'index.html',
-
-            // 模板路径
-            template: path.join(__dirname, 'src/index.html')
-        }),
-
-        // 抽离公共模块
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
-        })
     ],
 
     // 服务
@@ -106,19 +75,16 @@ module.exports = {
         port: 9292
     },
 
-    // 解析
-    resolve: {
-        // 配置别名
-        alias: {
-            pages: path.join(__dirname, 'src/pages'),
-            components: path.join(__dirname, 'src/components'),
-            router: path.join(__dirname, 'src/router'),
-            actions: path.join(__dirname, 'src/redux/actions'),
-            reducers: path.join(__dirname, 'src/redux/reducers'),
-            img: path.join(__dirname, 'public/images')
-        }
-    },
-
     // 调试
     devtool: 'inline-source-map'
-};
+}
+
+module.exports = merge({
+    customizeArray(a, b, key) {
+        /*entry.app不合并，全替换*/
+        if (key === 'entry.app') {
+            return b;
+        }
+        return undefined;
+    }
+})(commonConfig, devConfig);

@@ -1,26 +1,16 @@
+const merge = require('webpack-merge'); //合并配置插件
 const path = require('path');   //处理路径，nodeJS内置模块
 const webpack = require('webpack');
-
-let HtmlWebpackPlugin = require('html-webpack-plugin'); //模板插件
 const UnglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');  //压缩插件
 const CleanWebpackPlugin = require('clean-webpack-plugin');     //清理文件插件
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');    //抽取css
 
-// 暴露模块
-module.exports = {
-    // 入口，__dirname：表示根目录，path.join：连接多个路径
-    entry: {
-        app: [
-            path.join(__dirname, 'src/index.js')
-        ],
+const commonConfig = require('./webpack.config.common');
 
-        // 提取公用模块
-        vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
-    },
-
+// 生产配置
+const prodConfig = {
     // 出口
     output: {
-        path: path.join(__dirname, './dist'),
         filename: './assets/js/[name].[chunkhash].js',
         chunkFilename: './assets/js/[name].[chunkhash].js',
 
@@ -32,26 +22,9 @@ module.exports = {
     module: {
         rules: [
             {
-                // 目标文件，正常使用正则匹配
-                test: /\.js$/,
-
-                // 使用的解析器，cacheDirectory是用来缓存编译结果，下次编译加速
-                use: ['babel-loader?cacheDirectory=true'],
-
-                // 指定目录
-                include: path.join(__dirname, 'src')
-            },
-            {
-                test: /\.css$/,
+                test: /\.(css|scss)$/,
 
                 // 注意顺序，先引用style-loader在引用css-loader，否则会解析出错
-                use: ExtractTextWebpackPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
-            },
-            {
-                test: /\.scss$/,
                 use: ExtractTextWebpackPlugin.extract({
                     fallback: "style-loader",
                     use: ['css-loader', 'sass-loader']
@@ -79,28 +52,6 @@ module.exports = {
 
     // 插件
     plugins: [
-        // 模板页面
-        new HtmlWebpackPlugin({
-            // 生成后页面名称
-            filename: 'index.html',
-
-            // 模板路径
-            template: path.join(__dirname, 'src/index.html')
-        }),
-
-        // 处理缓存- hash
-        new webpack.HashedModuleIdsPlugin(),
-
-        // 抽离公共模块
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
-        }),
-
-        // 优化公共模块缓存
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'runtime'
-        }),
-
         // 压缩
         new UnglifyjsWebpackPlugin({
             uglifyOptions: {
@@ -115,8 +66,8 @@ module.exports = {
             }
         }),
 
-        // 打包前清理dist目录下的文件 - 暂时注释
-        // new CleanWebpackPlugin(['dist']),
+        // 打包前清理dist目录下的文件 - 暂时保留api文件
+        new CleanWebpackPlugin(['dist/assets', 'dist/index.html']),
 
         // 抽取css
         new ExtractTextWebpackPlugin({
@@ -125,19 +76,8 @@ module.exports = {
         })
     ],
 
-    // 解析
-    resolve: {
-        // 配置别名
-        alias: {
-            pages: path.join(__dirname, 'src/pages'),
-            components: path.join(__dirname, 'src/components'),
-            router: path.join(__dirname, 'src/router'),
-            actions: path.join(__dirname, 'src/redux/actions'),
-            reducers: path.join(__dirname, 'src/redux/reducers'),
-            img: path.join(__dirname, 'public/images')
-        }
-    },
-
     // 调试
     devtool: 'cheap-module-source-map'
-};
+}
+
+module.exports = merge(commonConfig, prodConfig);
