@@ -12,13 +12,13 @@
 ## 命令操作
 ```
 #安装
-npm install
+$ npm install
 
 #开发运行
-npm run dev
+$ npm run dev
 
 #打包
-npm run build
+$ npm run build
 ```
 
 ## 参考链接：
