@@ -9,6 +9,7 @@ const devConfig = {
     // 入口，__dirname：表示根目录，path.join：连接多个路径
     entry: {
         app: [
+            'babel-polyfill',
             "react-hot-loader/patch",
             path.join(__dirname, 'src/index.js')
         ]
@@ -27,7 +28,7 @@ const devConfig = {
                 test: /\.(css|scss)$/,
 
                 // 注意顺序，先引用style-loader在引用css-loader，否则会解析出错
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -49,6 +50,11 @@ const devConfig = {
     plugins: [
         // 热更新
         new webpack.HotModuleReplacementPlugin(),
+
+        // 开启 mock
+        new webpack.DefinePlugin({
+            MOCK: true
+        })
     ],
 
     // 服务

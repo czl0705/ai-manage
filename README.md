@@ -9,9 +9,21 @@
 2.安装成功后查看：npm config list
 ```
 
-## 进度
-目前暂时配置到【合并提取webpack公共配置】，其他待续
+## 命令操作
+```
+#安装
+npm install
 
-参考链接：
+#开发运行
+npm run dev
+
+#打包
+npm run build
+```
+
+## 参考链接：
 1.  https://doc.webpack-china.org/concepts/
 2.  https://github.com/brickspert/blog/issues/1
+
+## 进度
+目前剩下【IE8打包问题】，难点在于：使用webpack 3.x 打包怎么配置使其不会在IE8下报错

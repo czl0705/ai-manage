@@ -5,4 +5,12 @@ import userInfoMiddleware from './middleware/userInfoMiddleware';
 
 let store = createStore(combineReducers, applyMiddleware(userInfoMiddleware));
 
+// 热更新
+if (module.hot) {
+    module.hot.accept("./reducers", () => {
+        const nextCombineReduces = require("./reducers").default;
+        store.replaceReducer(nextCombineReduces);
+    });
+}
+
 export default store;

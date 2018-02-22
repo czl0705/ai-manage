@@ -6,6 +6,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //模板插件
 commonConfig = {
     entry: {
         app: [
+            // js编译ES6、7 转换为ES5
+            "babel-polyfill",
+
             // 入口，__dirname：表示根目录，path.join：连接多个路径
             path.join(__dirname, 'src/index.js')
         ],
@@ -63,7 +66,8 @@ commonConfig = {
             router: path.join(__dirname, 'src/router'),
             actions: path.join(__dirname, 'src/redux/actions'),
             reducers: path.join(__dirname, 'src/redux/reducers'),
-            img: path.join(__dirname, 'public/images')
+            img: path.join(__dirname, 'public/images'),
+            mock: path.join(__dirname, 'mock')
         }
     },
 }

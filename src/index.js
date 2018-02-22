@@ -8,6 +8,9 @@ import store from './redux/store';
 import {BrowserRouter as Router} from 'react-router-dom';
 import App from 'components/App/app';
 
+if (MOCK) {
+    require('mock/mock');
+}
 
 // 定义渲染函数
 function renderWithHotReload(RootElement) {

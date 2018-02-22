@@ -27,7 +27,7 @@ const prodConfig = {
                 // 注意顺序，先引用style-loader在引用css-loader，否则会解析出错
                 use: ExtractTextWebpackPlugin.extract({
                     fallback: "style-loader",
-                    use: ['css-loader', 'sass-loader']
+                    use: ['css-loader', 'sass-loader', 'postcss-loader']
                 })
             },
             {
