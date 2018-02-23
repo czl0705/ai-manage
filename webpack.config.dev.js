@@ -9,7 +9,6 @@ const devConfig = {
     // 入口，__dirname：表示根目录，path.join：连接多个路径
     entry: {
         app: [
-            'babel-polyfill',
             "react-hot-loader/patch",
             path.join(__dirname, 'src/index.js')
         ]
@@ -31,7 +30,7 @@ const devConfig = {
                 use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(png|jpg|jpeg|gif)$/,
                 use: [{
                     loader: 'url-loader',
                     options: {

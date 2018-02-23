@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const UnglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');  //压缩插件
 const CleanWebpackPlugin = require('clean-webpack-plugin');     //清理文件插件
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');    //抽取css
+const es3ifyPlugin = require('es3ify-webpack-plugin');
 
 const commonConfig = require('./webpack.config.common');
 
@@ -11,8 +12,8 @@ const commonConfig = require('./webpack.config.common');
 const prodConfig = {
     // 出口
     output: {
-        filename: './assets/js/[name].[chunkhash].js',
-        chunkFilename: './assets/js/[name].[chunkhash].js',
+        filename: 'assets/js/[name].[chunkhash].js',
+        chunkFilename: 'assets/js/[name].[chunkhash].js',
 
         // 静态服务器地址接口
         publicPath: '/'
@@ -21,6 +22,11 @@ const prodConfig = {
     // 文件处理
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                enforce: 'post',
+                loaders: ['es3ify-loader']
+            },
             {
                 test: /\.(css|scss)$/,
 
@@ -55,6 +61,7 @@ const prodConfig = {
         // 压缩
         new UnglifyjsWebpackPlugin({
             uglifyOptions: {
+                ecma: 5,
                 ie8: true   //压缩后IE8可解析
             }
         }),
@@ -66,14 +73,17 @@ const prodConfig = {
             }
         }),
 
-        // 打包前清理dist目录下的文件 - 暂时保留api文件
-        new CleanWebpackPlugin(['dist/assets', 'dist/index.html']),
+        // 打包前清理dist目录下的文件
+        new CleanWebpackPlugin(['dist/*']),
 
         // 抽取css
         new ExtractTextWebpackPlugin({
             filename: 'assets/css/[name].[contenthash:5].css',
             allChunks: true
-        })
+        }),
+
+        // 兼容IE8
+        new es3ifyPlugin()
     ],
 
     // 调试

@@ -7,6 +7,8 @@ commonConfig = {
     entry: {
         app: [
             // js编译ES6、7 转换为ES5
+            "es5-shim",
+            "es5-shim/es5-sham",
             "babel-polyfill",
 
             // 入口，__dirname：表示根目录，path.join：连接多个路径
@@ -30,7 +32,7 @@ commonConfig = {
 
                 // 指定目录
                 include: path.join(__dirname, 'src')
-            }
+            },
         ]
     },
     plugins: [
@@ -54,7 +56,7 @@ commonConfig = {
         // 优化公共模块缓存
         new webpack.optimize.CommonsChunkPlugin({
             name: 'runtime'
-        }),
+        })
     ],
 
     // 解析
