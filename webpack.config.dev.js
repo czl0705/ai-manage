@@ -24,10 +24,10 @@ const devConfig = {
     module: {
         rules: [
             {
-                test: /\.(css|scss)$/,
+                test: /\.(css|less|scss)$/,
 
                 // 注意顺序，先引用style-loader在引用css-loader，否则会解析出错
-                use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
+                use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader','less-loader']
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/,

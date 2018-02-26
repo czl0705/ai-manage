@@ -6,6 +6,14 @@
     ],
     "plugins": [
         "transform-runtime",
-        "react-hot-loader/babel"
+        "react-hot-loader/babel",
+        [
+            "import",
+            {
+                "libraryName": "@sdp.nd/fish",
+                "libraryDirectory": "lib",
+                "style": true
+            }
+        ]
     ]
 }

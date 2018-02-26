@@ -5,6 +5,7 @@ import {
     decrement,
     reset
 } from 'actions/counter';
+import { DatePicker } from '@sdp.nd/fish';
 
 class Counter extends Component {
     render() {
@@ -14,6 +15,8 @@ class Counter extends Component {
                 <button onClick={() => this.props.increment()}>自增</button>
                 <button onClick={() => this.props.decrement()}>自减</button>
                 <button onClick={() => this.props.reset()}>重置</button>
+                <br/>
+                <DatePicker />
             </div>
         )
     }

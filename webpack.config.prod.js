@@ -28,12 +28,12 @@ const prodConfig = {
                 loaders: ['es3ify-loader']
             },
             {
-                test: /\.(css|scss)$/,
+                test: /\.(css|less|scss)$/,
 
                 // 注意顺序，先引用style-loader在引用css-loader，否则会解析出错
                 use: ExtractTextWebpackPlugin.extract({
                     fallback: "style-loader",
-                    use: ['css-loader', 'sass-loader', 'postcss-loader']
+                    use: ['css-loader', 'sass-loader', 'less-loader', 'postcss-loader']
                 })
             },
             {
